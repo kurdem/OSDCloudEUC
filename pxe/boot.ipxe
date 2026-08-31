@@ -1,0 +1,19 @@
+#!ipxe
+# ============================================================================
+# OSDCloudEUC - iPXE Einstiegsskript
+# Wird per DHCP (Option 67 / filename) oder Chainload geladen und ruft das Menue auf.
+# Passe ${boot-url} an deinen HTTP-Server an (z. B. http://deploy.corp.example.com).
+# ============================================================================
+
+set boot-url http://deploy.example.com/osdcloud
+set menu-url ${boot-url}/ipxe-menu.ipxe
+
+echo
+echo OSDCloudEUC iPXE Boot
+echo MAC ........ ${net0/mac}
+echo IP ......... ${net0/ip}
+echo Platform ... ${platform}
+echo
+
+# Menue laden; bei Fehler in die iPXE-Shell fallen.
+chain --autofree ${menu-url} || shell

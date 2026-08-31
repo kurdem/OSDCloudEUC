@@ -1,0 +1,32 @@
+{
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "JoinProfiles": {
+    "Domain": {
+      "Description": "Active Directory Domain Join in der Specialize-Phase.",
+      "DomainName": "corp.example.com",
+      "OUPath": "OU=Clients,OU=Devices,DC=corp,DC=example,DC=com",
+      "CredentialSource": "Prompt",
+      "Comment": "Anmeldedaten NICHT hier speichern. CredentialSource=Prompt fragt interaktiv, oder ueber sichere Bereitstellung (LAPS/Provisioning-Package)."
+    },
+    "Entra": {
+      "Description": "Microsoft Entra Join ueber OOBE / Autopilot bzw. Provisioning-Paket.",
+      "TenantName": "example.onmicrosoft.com",
+      "Method": "OOBE",
+      "Comment": "Entra Join erfolgt bevorzugt ueber Autopilot / OOBE, nicht per gespeichertem Secret."
+    },
+    "Workgroup": {
+      "Description": "Kein Domain/Entra Join. Client bleibt in einer Arbeitsgruppe.",
+      "WorkgroupName": "WORKGROUP"
+    }
+  },
+  "Dns": {
+    "PreferredServers": [],
+    "UseDhcp": true
+  },
+  "Proxy": {
+    "Enabled": false,
+    "Address": "",
+    "BypassLocal": true
+  }
+}

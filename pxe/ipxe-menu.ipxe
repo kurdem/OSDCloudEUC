@@ -1,0 +1,58 @@
+#!ipxe
+# ============================================================================
+# OSDCloudEUC - iPXE Bootmenue
+# Bootet das angepasste OSDCloud-WinPE per wimboot ueber HTTP.
+# Erforderliche Dateien auf dem HTTP-Server unter ${boot-url}:
+#   wimboot                (iPXE wimboot-Loader)
+#   boot/BCD               (aus dem OSDCloud-Media Ordner \boot)
+#   boot/boot.sdi          (aus \boot)
+#   sources/boot.wim       (das mit Build-OSDCloudMedia erzeugte WinPE)
+# ============================================================================
+
+set boot-url http://deploy.example.com/osdcloud
+set timeout-ms 30000
+
+:start
+menu OSDCloudEUC - Windows Deployment
+item --gap --                     Deployment
+item winpe                        OSDCloud WinPE starten (Standard)
+item winpe_zt                     OSDCloud WinPE - Zero-Touch
+item --gap --                     System
+item local                        Von lokaler Festplatte booten
+item shell                        iPXE-Shell
+item reboot                       Neustart
+choose --timeout ${timeout-ms} --default winpe selected || goto start
+goto ${selected}
+
+:winpe
+echo Lade OSDCloud WinPE ...
+kernel ${boot-url}/wimboot
+initrd ${boot-url}/boot/BCD          BCD
+initrd ${boot-url}/boot/boot.sdi     boot.sdi
+initrd ${boot-url}/sources/boot.wim  boot.wim
+boot || goto failed
+
+:winpe_zt
+# Zero-Touch: identisches WinPE. Der Zero-Touch-Modus wird ueber
+# global.json (Deployment.EnableZeroTouch=true) bzw. das Test-Profil gesteuert.
+echo Lade OSDCloud WinPE (Zero-Touch) ...
+kernel ${boot-url}/wimboot
+initrd ${boot-url}/boot/BCD          BCD
+initrd ${boot-url}/boot/boot.sdi     boot.sdi
+initrd ${boot-url}/sources/boot.wim  boot.wim
+boot || goto failed
+
+:local
+echo Boote von lokaler Festplatte ...
+sanboot --no-describe --drive 0x80 || goto failed
+
+:shell
+shell
+
+:reboot
+reboot
+
+:failed
+echo Bootvorgang fehlgeschlagen.
+prompt Taste druecken fuer das Menue ...
+goto start

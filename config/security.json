@@ -1,0 +1,27 @@
+{
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "HashValidation": {
+    "Enabled": true,
+    "Algorithm": "SHA256",
+    "ManifestFile": "config/hashes.sha256",
+    "Comment": "Optionale Manifest-Datei mit 'HASH  relativer/Pfad' je Zeile. Fehlt sie, wird bei ValidateHashes=true gewarnt statt abgebrochen."
+  },
+  "SignatureValidation": {
+    "Enabled": false,
+    "RequireSignedScripts": false,
+    "TrustedThumbprints": [],
+    "Comment": "Bei true muessen PowerShell-Skripte mit einem Zertifikat aus TrustedThumbprints signiert sein (Authenticode)."
+  },
+  "AllowedHosts": [
+    "raw.githubusercontent.com",
+    "github.com",
+    "api.github.com",
+    "objects.githubusercontent.com"
+  ],
+  "DiskWipe": {
+    "RequireConfirmation": true,
+    "ConfirmationPhrase": "WIPE",
+    "Comment": "Vor dem Loeschen der Zieldisk muss der Benutzer die Bestaetigungsphrase eingeben (ausser im Zero-Touch-Modus mit gesetztem Override)."
+  }
+}

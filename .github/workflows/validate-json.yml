@@ -1,0 +1,63 @@
+name: Validate JSON
+
+on:
+  push:
+    paths:
+      - 'config/**'
+      - 'profiles/**'
+      - '.github/workflows/validate-json.yml'
+  pull_request:
+    paths:
+      - 'config/**'
+      - 'profiles/**'
+  workflow_dispatch:
+
+jobs:
+  jsonlint:
+    name: JSON wohlgeformt + Schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv
+        run: npm install ajv@8 ajv-formats@3
+
+      - name: Alle JSON-Dateien auf Wohlgeformtheit pruefen
+        run: |
+          set -e
+          fail=0
+          for f in $(find config profiles -name '*.json'); do
+            if node -e "JSON.parse(require('fs').readFileSync('$f'))" ; then
+              echo "OK   $f"
+            else
+              echo "::error file=$f::Ungueltiges JSON"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Schema-Validierung (global + deployments)
+        run: |
+          cat > validate.js <<'EOF'
+          const fs = require('fs');
+          const Ajv = require('ajv');
+          const ajv = new Ajv({ allErrors: true, strict: false });
+          const checks = [
+            ['config/global.json', 'config/schema/global.schema.json'],
+            ['config/deployments.json', 'config/schema/deployments.schema.json'],
+          ];
+          let failed = 0;
+          for (const [dataF, schemaF] of checks) {
+            const data = JSON.parse(fs.readFileSync(dataF));
+            const schema = JSON.parse(fs.readFileSync(schemaF));
+            const validate = ajv.compile(schema);
+            if (validate(data)) { console.log('OK   ' + dataF); }
+            else { failed++; console.log('FAIL ' + dataF); console.log(JSON.stringify(validate.errors, null, 2)); }
+          }
+          process.exit(failed ? 1 : 0);
+          EOF
+          node validate.js

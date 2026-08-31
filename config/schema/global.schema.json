@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/kurdem/OSDCloudEUC/config/schema/global.schema.json",
+  "title": "OSDCloudEUC Global Configuration",
+  "type": "object",
+  "required": [ "SchemaVersion", "Repository", "Deployment", "Security" ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "SchemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "ConfigVersion": { "type": "string" },
+    "Repository": {
+      "type": "object",
+      "required": [ "Provider", "Owner", "Name", "Branch" ],
+      "additionalProperties": false,
+      "properties": {
+        "Provider": { "type": "string", "enum": [ "GitHub", "GitHubEnterprise", "WebServer" ] },
+        "Owner": { "type": "string", "minLength": 1 },
+        "Name": { "type": "string", "minLength": 1 },
+        "Branch": { "type": "string", "minLength": 1 },
+        "UseRelease": { "type": "boolean" },
+        "ReleaseTag": { "type": "string" },
+        "AllowPrivateRepository": { "type": "boolean" },
+        "BaseUrlOverride": { "type": "string" },
+        "EnterpriseServerHost": { "type": "string" }
+      }
+    },
+    "Deployment": {
+      "type": "object",
+      "required": [ "DefaultProfile" ],
+      "additionalProperties": false,
+      "properties": {
+        "DefaultProfile": { "type": "string", "minLength": 1 },
+        "EnableInteractiveMenu": { "type": "boolean" },
+        "EnableZeroTouch": { "type": "boolean" },
+        "RequireConfirmationBeforeDiskWipe": { "type": "boolean" },
+        "AllowedProfiles": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+    "Network": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 600 },
+        "RetryCount": { "type": "integer", "minimum": 0, "maximum": 20 },
+        "RetryDelaySeconds": { "type": "integer", "minimum": 0, "maximum": 60 },
+        "FallbackMode": { "type": "string", "enum": [ "LocalConfig", "InternalWebServer", "Fail" ] },
+        "InternalWebServerUrl": { "type": "string" }
+      }
+    },
+    "Security": {
+      "type": "object",
+      "required": [ "AllowedHosts" ],
+      "additionalProperties": false,
+      "properties": {
+        "ValidateHashes": { "type": "boolean" },
+        "RequireSignedScripts": { "type": "boolean" },
+        "AllowedHosts": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        }
+      }
+    },
+    "Logging": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Target": { "type": "string" },
+        "Level": { "type": "string", "enum": [ "Debug", "Information", "Warning", "Error" ] },
+        "DebugMode": { "type": "boolean" },
+        "EnableTranscript": { "type": "boolean" }
+      }
+    }
+  }
+}
