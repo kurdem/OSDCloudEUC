@@ -1,0 +1,133 @@
+{
+  "$schema": "./schema/deployments.schema.json",
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "MainMenu": [
+    { "Id": "standard", "Label": "Standardinstallation starten", "Action": "StartDefault" },
+    { "Id": "profile", "Label": "Deployment-Profil auswaehlen", "Action": "SelectField", "Field": "Profile" },
+    { "Id": "os", "Label": "Windows-Version und Edition auswaehlen", "Action": "SelectField", "Field": "OperatingSystem" },
+    { "Id": "language", "Label": "Sprache und Tastaturlayout auswaehlen", "Action": "SelectField", "Field": "Language" },
+    { "Id": "drivers", "Label": "Treiberoptionen auswaehlen", "Action": "SelectField", "Field": "DriverStrategy" },
+    { "Id": "updates", "Label": "Windows-Update-Strategie auswaehlen", "Action": "SelectField", "Field": "UpdateStrategy" },
+    { "Id": "join", "Label": "Domain / Entra / Workgroup auswaehlen", "Action": "SelectField", "Field": "JoinType" },
+    { "Id": "computername", "Label": "Computernamen festlegen", "Action": "InputField", "Field": "ComputerName" },
+    { "Id": "review", "Label": "Zusammenfassung anzeigen und Deployment starten", "Action": "ReviewAndDeploy" },
+    { "Id": "reboot", "Label": "Neustart", "Action": "Reboot" },
+    { "Id": "shell", "Label": "PowerShell-Eingabeaufforderung", "Action": "Shell" }
+  ],
+  "Fields": {
+    "Profile": {
+      "Label": "Deployment-Profil",
+      "Type": "select",
+      "Default": "Windows11-Enterprise-DE",
+      "Options": [
+        { "Id": "Windows11-Enterprise-DE", "Label": "Windows 11 Enterprise (Deutsch)", "Value": "Windows11-Enterprise-DE" },
+        { "Id": "Windows11-Enterprise-EN", "Label": "Windows 11 Enterprise (English)", "Value": "Windows11-Enterprise-EN" },
+        { "Id": "Windows11-Test", "Label": "Windows 11 Test / VM (Zero-Touch)", "Value": "Windows11-Test" }
+      ]
+    },
+    "OperatingSystem": {
+      "Label": "Windows-Version / Edition",
+      "Type": "select",
+      "Default": "Win11-24H2-Enterprise",
+      "Options": [
+        { "Id": "Win11-24H2-Enterprise", "Label": "Windows 11 24H2 Enterprise", "Value": "Win11-24H2-Enterprise" },
+        { "Id": "Win11-24H2-Pro", "Label": "Windows 11 24H2 Pro", "Value": "Win11-24H2-Pro" },
+        { "Id": "Win11-23H2-Enterprise", "Label": "Windows 11 23H2 Enterprise", "Value": "Win11-23H2-Enterprise" }
+      ]
+    },
+    "Language": {
+      "Label": "Sprache",
+      "Type": "select",
+      "Default": "de-DE",
+      "Options": [
+        { "Id": "de-DE", "Label": "Deutsch (Deutschland)", "Value": "de-DE", "KeyboardLayout": "0407:00000407" },
+        { "Id": "en-US", "Label": "English (United States)", "Value": "en-US", "KeyboardLayout": "0409:00000409" },
+        { "Id": "en-GB", "Label": "English (United Kingdom)", "Value": "en-GB", "KeyboardLayout": "0809:00000809" }
+      ]
+    },
+    "KeyboardLayout": {
+      "Label": "Tastaturlayout",
+      "Type": "select",
+      "Default": "0407:00000407",
+      "Options": [
+        { "Id": "de", "Label": "Deutsch (QWERTZ)", "Value": "0407:00000407" },
+        { "Id": "us", "Label": "US (QWERTY)", "Value": "0409:00000409" },
+        { "Id": "uk", "Label": "UK (QWERTY)", "Value": "0809:00000809" }
+      ]
+    },
+    "Activation": {
+      "Label": "Aktivierungsart",
+      "Type": "select",
+      "Default": "Firmware",
+      "Options": [
+        { "Id": "Firmware", "Label": "Firmware / OEM (BIOS-Key)", "Value": "Firmware" },
+        { "Id": "KMS", "Label": "KMS / Volumenlizenz", "Value": "KMS" },
+        { "Id": "MAK", "Label": "MAK-Key", "Value": "MAK" },
+        { "Id": "None", "Label": "Keine Aktivierung", "Value": "None" }
+      ]
+    },
+    "InstallMode": {
+      "Label": "Installationsmodus",
+      "Type": "select",
+      "Default": "CleanInstall",
+      "Options": [
+        { "Id": "CleanInstall", "Label": "Saubere Neuinstallation (Disk loeschen)", "Value": "CleanInstall" },
+        { "Id": "Upgrade", "Label": "In-Place-Upgrade (nur wenn OS vorhanden)", "Value": "Upgrade" }
+      ]
+    },
+    "DriverStrategy": {
+      "Label": "Treiberstrategie",
+      "Type": "select",
+      "Default": "OSDCloudDriverPack",
+      "Options": [
+        { "Id": "OSDCloudDriverPack", "Label": "OSDCloud DriverPack (Hersteller)", "Value": "OSDCloudDriverPack" },
+        { "Id": "MicrosoftUpdateCatalog", "Label": "Microsoft Update Catalog", "Value": "MicrosoftUpdateCatalog" },
+        { "Id": "VendorFolder", "Label": "Lokaler Treiberordner", "Value": "VendorFolder" },
+        { "Id": "None", "Label": "Keine Treiber", "Value": "None" }
+      ]
+    },
+    "UpdateStrategy": {
+      "Label": "Windows-Update-Strategie",
+      "Type": "select",
+      "Default": "SecurityOnly",
+      "Options": [
+        { "Id": "AllUpdates", "Label": "Alle Updates", "Value": "AllUpdates" },
+        { "Id": "SecurityOnly", "Label": "Nur Sicherheitsupdates", "Value": "SecurityOnly" },
+        { "Id": "DefenderOnly", "Label": "Nur Defender-Definitionen", "Value": "DefenderOnly" },
+        { "Id": "None", "Label": "Keine Updates", "Value": "None" }
+      ]
+    },
+    "Partitioning": {
+      "Label": "Partitionierung",
+      "Type": "select",
+      "Default": "UEFI-GPT",
+      "Options": [
+        { "Id": "UEFI-GPT", "Label": "UEFI / GPT (Standard)", "Value": "UEFI-GPT" },
+        { "Id": "BIOS-MBR", "Label": "BIOS / MBR (Legacy)", "Value": "BIOS-MBR" }
+      ]
+    },
+    "JoinType": {
+      "Label": "Domain / Entra / Workgroup",
+      "Type": "select",
+      "Default": "Workgroup",
+      "Options": [
+        { "Id": "Domain", "Label": "Active Directory Domain Join", "Value": "Domain" },
+        { "Id": "Entra", "Label": "Microsoft Entra Join", "Value": "Entra" },
+        { "Id": "Workgroup", "Label": "Arbeitsgruppe (Workgroup)", "Value": "Workgroup" }
+      ]
+    },
+    "ComputerName": {
+      "Label": "Computername",
+      "Type": "input",
+      "Default": "%SERIAL%",
+      "Pattern": "^[A-Za-z0-9%-]{1,15}$",
+      "Hint": "Platzhalter: %SERIAL% = Seriennummer, %MODEL% = Modell. Max. 15 Zeichen."
+    },
+    "ZeroTouch": {
+      "Label": "Zero-Touch-Modus",
+      "Type": "boolean",
+      "Default": false
+    }
+  }
+}

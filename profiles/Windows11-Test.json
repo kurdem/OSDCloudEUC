@@ -1,0 +1,19 @@
+{
+  "SchemaVersion": "1.0",
+  "ProfileId": "Windows11-Test",
+  "DisplayName": "Windows 11 Test / VM (Zero-Touch)",
+  "Description": "Zero-Touch-Profil fuer VMs und Laborbetrieb. Keine Treiber, keine Updates, keine Bestaetigung beim Disk-Wipe.",
+  "OperatingSystem": "Win11-24H2-Pro",
+  "Language": "en-US",
+  "KeyboardLayout": "0409:00000409",
+  "Activation": "None",
+  "InstallMode": "CleanInstall",
+  "DriverStrategy": "None",
+  "UpdateStrategy": "None",
+  "Partitioning": "UEFI-GPT",
+  "JoinType": "Workgroup",
+  "ComputerName": "TEST-%SERIAL%",
+  "ZeroTouch": true,
+  "SkipDiskWipeConfirmation": true,
+  "PostInstallScripts": []
+}

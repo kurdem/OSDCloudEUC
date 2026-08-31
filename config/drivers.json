@@ -1,0 +1,52 @@
+{
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "Strategies": {
+    "OSDCloudDriverPack": {
+      "Description": "Nutzt den vom Hersteller bereitgestellten OSDCloud DriverPack (via Get-OSDCloudDriverPack).",
+      "Source": "DriverPack",
+      "ApplyDuringWinPE": true
+    },
+    "MicrosoftUpdateCatalog": {
+      "Description": "Laedt Treiber ueber den Microsoft Update Catalog (OSDCloud Standardmechanismus).",
+      "Source": "MicrosoftUpdateCatalog",
+      "ApplyDuringWinPE": false
+    },
+    "VendorFolder": {
+      "Description": "Kopiert Treiber aus einem lokalen bzw. per Netz eingebundenen Ordner.",
+      "Source": "LocalFolder",
+      "Path": "X:\\OSDCloud\\Drivers",
+      "ApplyDuringWinPE": false
+    },
+    "None": {
+      "Description": "Keine zusaetzlichen Treiber. Nur die in Windows enthaltenen Treiber werden verwendet.",
+      "Source": "None",
+      "ApplyDuringWinPE": false
+    }
+  },
+  "ModelMappings": [
+    {
+      "Manufacturer": "Dell Inc.",
+      "Model": "Latitude 5450",
+      "Strategy": "OSDCloudDriverPack",
+      "DriverPackName": "Latitude 5450"
+    },
+    {
+      "Manufacturer": "LENOVO",
+      "Model": "21F6",
+      "ModelFriendly": "ThinkPad T14 Gen 5",
+      "Strategy": "OSDCloudDriverPack"
+    },
+    {
+      "Manufacturer": "Microsoft Corporation",
+      "Model": "Surface Laptop 7",
+      "Strategy": "MicrosoftUpdateCatalog"
+    },
+    {
+      "Manufacturer": "*",
+      "Model": "Virtual Machine",
+      "Strategy": "None",
+      "Comment": "Hyper-V / generische VM benoetigt keine Treiberpakete."
+    }
+  ]
+}

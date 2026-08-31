@@ -1,0 +1,34 @@
+{
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "Strategies": {
+    "AllUpdates": {
+      "Description": "Installiert alle verfuegbaren Windows-Updates (Qualitaet + Treiber + Defender).",
+      "Categories": [ "Security", "Critical", "Definition", "Driver", "Feature" ],
+      "IncludeDrivers": true,
+      "Method": "PSWindowsUpdate"
+    },
+    "SecurityOnly": {
+      "Description": "Installiert nur Sicherheits- und kritische Updates.",
+      "Categories": [ "Security", "Critical" ],
+      "IncludeDrivers": false,
+      "Method": "PSWindowsUpdate"
+    },
+    "DefenderOnly": {
+      "Description": "Aktualisiert nur die Microsoft-Defender-Definitionen.",
+      "Categories": [ "Definition" ],
+      "IncludeDrivers": false,
+      "Method": "DefenderSignature"
+    },
+    "None": {
+      "Description": "Keine Updates waehrend des Deployments.",
+      "Categories": [],
+      "IncludeDrivers": false,
+      "Method": "None"
+    }
+  },
+  "Fallback": {
+    "Description": "Wird verwendet wenn PSWindowsUpdate nicht verfuegbar ist.",
+    "Method": "USOClient"
+  }
+}

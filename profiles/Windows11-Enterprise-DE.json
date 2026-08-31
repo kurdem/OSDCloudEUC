@@ -1,0 +1,22 @@
+{
+  "SchemaVersion": "1.0",
+  "ProfileId": "Windows11-Enterprise-DE",
+  "DisplayName": "Windows 11 Enterprise (Deutsch)",
+  "Description": "Standardprofil fuer deutschsprachige Enterprise-Clients mit UEFI/GPT.",
+  "OperatingSystem": "Win11-24H2-Enterprise",
+  "Language": "de-DE",
+  "KeyboardLayout": "0407:00000407",
+  "Activation": "Firmware",
+  "InstallMode": "CleanInstall",
+  "DriverStrategy": "OSDCloudDriverPack",
+  "UpdateStrategy": "SecurityOnly",
+  "Partitioning": "UEFI-GPT",
+  "JoinType": "Workgroup",
+  "ComputerName": "%SERIAL%",
+  "ZeroTouch": false,
+  "PostInstallScripts": [
+    "postinstall/Install-Drivers.ps1",
+    "postinstall/Install-Updates.ps1",
+    "postinstall/Rename-Computer.ps1"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/kurdem/OSDCloudEUC/config/schema/deployments.schema.json",
+  "title": "OSDCloudEUC Deployment Menu Definition",
+  "type": "object",
+  "required": [ "SchemaVersion", "MainMenu", "Fields" ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "SchemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "ConfigVersion": { "type": "string" },
+    "MainMenu": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [ "Id", "Label", "Action" ],
+        "additionalProperties": false,
+        "properties": {
+          "Id": { "type": "string", "minLength": 1 },
+          "Label": { "type": "string", "minLength": 1 },
+          "Action": {
+            "type": "string",
+            "enum": [ "StartDefault", "SelectField", "InputField", "ReviewAndDeploy", "Reboot", "Shell" ]
+          },
+          "Field": { "type": "string" }
+        }
+      }
+    },
+    "Fields": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [ "Label", "Type" ],
+        "additionalProperties": true,
+        "properties": {
+          "Label": { "type": "string", "minLength": 1 },
+          "Type": { "type": "string", "enum": [ "select", "input", "boolean" ] },
+          "Default": {},
+          "Pattern": { "type": "string" },
+          "Hint": { "type": "string" },
+          "Options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [ "Id", "Label", "Value" ],
+              "additionalProperties": true,
+              "properties": {
+                "Id": { "type": "string", "minLength": 1 },
+                "Label": { "type": "string", "minLength": 1 },
+                "Value": { "type": "string" }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "Type": { "const": "select" } } },
+            "then": { "required": [ "Options" ] }
+          }
+        ]
+      }
+    }
+  }
+}

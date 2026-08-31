@@ -1,0 +1,50 @@
+{
+  "$schema": "./schema/global.schema.json",
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "Repository": {
+    "Provider": "GitHub",
+    "Owner": "kurdem",
+    "Name": "OSDCloudEUC",
+    "Branch": "main",
+    "UseRelease": false,
+    "ReleaseTag": "",
+    "AllowPrivateRepository": true,
+    "BaseUrlOverride": "",
+    "EnterpriseServerHost": ""
+  },
+  "Deployment": {
+    "DefaultProfile": "Windows11-Enterprise-DE",
+    "EnableInteractiveMenu": true,
+    "EnableZeroTouch": false,
+    "RequireConfirmationBeforeDiskWipe": true,
+    "AllowedProfiles": [
+      "Windows11-Enterprise-DE",
+      "Windows11-Enterprise-EN",
+      "Windows11-Test"
+    ]
+  },
+  "Network": {
+    "TimeoutSeconds": 30,
+    "RetryCount": 4,
+    "RetryDelaySeconds": 2,
+    "FallbackMode": "LocalConfig",
+    "InternalWebServerUrl": ""
+  },
+  "Security": {
+    "ValidateHashes": true,
+    "RequireSignedScripts": false,
+    "AllowedHosts": [
+      "raw.githubusercontent.com",
+      "github.com",
+      "api.github.com",
+      "objects.githubusercontent.com"
+    ]
+  },
+  "Logging": {
+    "Target": "X:\\OSDCloud\\Logs",
+    "Level": "Information",
+    "DebugMode": false,
+    "EnableTranscript": true
+  }
+}

@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Konfigurations-Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Konfigurationspaket erstellen
+        run: |
+          set -e
+          PKG="OSDCloudEUC-config-${GITHUB_REF_NAME}.zip"
+          zip -r "$PKG" config profiles scripts src pxe README.md CHANGELOG.md LICENSE
+          echo "PKG=$PKG" >> "$GITHUB_ENV"
+
+      - name: SHA256-Manifest erzeugen
+        run: |
+          find config profiles scripts src -type f \( -name '*.json' -o -name '*.ps1' -o -name '*.psm1' \) \
+            -exec sha256sum {} \; > hashes.sha256
+          cat hashes.sha256
+
+      - name: Release veroeffentlichen
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ env.PKG }}
+            hashes.sha256
+          generate_release_notes: true

@@ -1,0 +1,42 @@
+{
+  "SchemaVersion": "1.0",
+  "ConfigVersion": "1.0.0",
+  "OperatingSystems": [
+    {
+      "Id": "Win11-24H2-Enterprise",
+      "Name": "Windows 11 Enterprise",
+      "Version": "24H2",
+      "Build": "26100",
+      "Edition": "Enterprise",
+      "Architecture": "x64",
+      "OSName": "Windows 11 24H2 x64",
+      "OSEdition": "Enterprise",
+      "OSLanguage": "de-de",
+      "OSActivation": "Volume"
+    },
+    {
+      "Id": "Win11-24H2-Pro",
+      "Name": "Windows 11 Pro",
+      "Version": "24H2",
+      "Build": "26100",
+      "Edition": "Pro",
+      "Architecture": "x64",
+      "OSName": "Windows 11 24H2 x64",
+      "OSEdition": "Pro",
+      "OSLanguage": "de-de",
+      "OSActivation": "Retail"
+    },
+    {
+      "Id": "Win11-23H2-Enterprise",
+      "Name": "Windows 11 Enterprise",
+      "Version": "23H2",
+      "Build": "22631",
+      "Edition": "Enterprise",
+      "Architecture": "x64",
+      "OSName": "Windows 11 23H2 x64",
+      "OSEdition": "Enterprise",
+      "OSLanguage": "de-de",
+      "OSActivation": "Volume"
+    }
+  ]
+}

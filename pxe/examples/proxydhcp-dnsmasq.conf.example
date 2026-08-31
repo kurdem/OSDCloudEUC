@@ -1,0 +1,26 @@
+# ============================================================================
+# dnsmasq als ProxyDHCP - greift NICHT in ein bestehendes DHCP ein,
+# liefert nur Bootinformationen (ideal, wenn das DHCP nicht angefasst werden darf).
+# Start: dnsmasq --conf-file=proxydhcp-dnsmasq.conf.example
+# ============================================================================
+
+port=0                       # DNS deaktivieren, nur ProxyDHCP/TFTP
+log-dhcp
+
+# ProxyDHCP fuer das lokale Subnetz.
+dhcp-range=10.0.0.0,proxy
+
+# TFTP-Root mit iPXE-Bootloadern und wimboot.
+enable-tftp
+tftp-root=/srv/tftp
+
+# Architektur-Weiche (Client System Architecture, Option 93).
+dhcp-match=set:ipxe,175            # iPXE sendet Option 175
+dhcp-match=set:efi-x64,option:client-arch,7
+dhcp-match=set:efi-x64,option:client-arch,9
+dhcp-match=set:bios,option:client-arch,0
+
+# Bereits iPXE -> HTTP-Skript. Sonst passenden Loader per TFTP.
+dhcp-boot=tag:ipxe,http://deploy.example.com/osdcloud/boot.ipxe
+dhcp-boot=tag:efi-x64,tag:!ipxe,snponly.efi
+dhcp-boot=tag:bios,tag:!ipxe,undionly.kpxe

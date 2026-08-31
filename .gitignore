@@ -1,0 +1,38 @@
+# --- Build- und Media-Artefakte ---
+*.iso
+*.wim
+*.esd
+*.vhd
+*.vhdx
+/build/
+/out/
+/OSDCloud/
+/OSDCloudWorkspace/
+Media/
+
+# --- Logs ---
+*.log
+Logs/
+*.transcript.log
+
+# --- Secrets / lokale Konfiguration (niemals committen) ---
+*.secret
+*.token
+secrets.json
+config/local.*.json
+config/hashes.sha256
+
+# --- PowerShell ---
+*.psd1.bak
+PSScriptAnalyzerSettings.local.psd1
+
+# --- Node (nur fuer lokale JSON-Validierung) ---
+node_modules/
+package-lock.json
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+*.swp

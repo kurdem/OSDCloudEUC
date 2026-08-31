@@ -1,0 +1,8 @@
+# Standard-Codeowner fuer das gesamte Repository.
+* @kurdem
+
+# Bereichsspezifische Owner (bei Bedarf ergaenzen).
+/config/   @kurdem
+/src/      @kurdem
+/pxe/      @kurdem
+/docs/     @kurdem
